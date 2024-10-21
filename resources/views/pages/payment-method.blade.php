@@ -175,7 +175,7 @@
                     .custom-card-body {
                         padding: 10px;
                         cursor: pointer;
-                        transition: background-color 0.3s, transform 0.2s;
+                        trphp artansition: background-color 0.3s, transform 0.2s;
                         height: 100%;
                         display: flex;
                         align-items: center;

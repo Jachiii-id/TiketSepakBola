@@ -3,18 +3,20 @@
 @section('title', 'Detail Ticket - Tactick')
 
 @section('content')
-<style>
-    .active-btn {
-      background-color: #0d6efd;
-      color: white;
-    }
-  </style>
+    <style>
+        .active-btn {
+            background-color: #0d6efd;
+            color: white;
+        }
+    </style>
     <div class="container">
         <div class="row">
             <!-- Button Navigation for Carousel -->
             <div class="mt-4">
-                <button class="btn btn-outline-primary mx-2 active-btn" data-bs-target="#contentSlider" data-bs-slide-to="0" id="btn1">Deskripsi</button>
-                <button class="btn btn-outline-primary mx-2" data-bs-target="#contentSlider" data-bs-slide-to="1" id="btn2">Jenis
+                <button class="btn btn-outline-primary mx-2 active-btn" data-bs-target="#contentSlider" data-bs-slide-to="0"
+                    id="btn1">Deskripsi</button>
+                <button class="btn btn-outline-primary mx-2" data-bs-target="#contentSlider" data-bs-slide-to="1"
+                    id="btn2">Jenis
                     Tiket</button>
             </div>
 
@@ -52,54 +54,54 @@
                             <div class="card-body">
                                 <h5 class="card-title">Jenis Tiket</h5>
                                 <p class="card-text mb-2">Pilih jenis tiket yang diinginkan</p>
-                                <div class="card" style="width: 36rem">
+                                <div class="card">
                                     <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-md-center">
-                                            <div class="col-6">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="col-8">
                                                 <h5 class="card-title text-primary">Tiket Tribun Utara</h5>
                                                 <p>Harga: Rp 100.000</p>
                                             </div>
-                                            <div class="col-1 me-2">
-                                                <a href="#" class="btn btn-primary btn-block">Beli</a>
+                                            <div class="col-auto">
+                                                <a href="#" class="btn btn-primary">Beli</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card" style="width: 36rem">
+                                <div class="card">
                                     <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-md-center">
-                                            <div class="col-6">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="col-8">
                                                 <h5 class="card-title text-primary">Tiket Tribun Timur</h5>
                                                 <p>Harga: Rp 80.000</p>
                                             </div>
-                                            <div class="col-1 me-2">
-                                                <a href="#" class="btn btn-primary btn-block">Beli</a>
+                                            <div class="col-auto">
+                                                <a href="#" class="btn btn-primary">Beli</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card" style="width: 36rem">
+                                <div class="card">
                                     <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-md-center">
-                                            <div class="col-6">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="col-8">
                                                 <h5 class="card-title text-primary">Tiket Tribun Barat</h5>
                                                 <p>Harga: Rp 90.000</p>
                                             </div>
-                                            <div class="col-1 me-2">
-                                                <a href="#" class="btn btn-primary btn-block">Beli</a>
+                                            <div class="col-auto">
+                                                <a href="#" class="btn btn-primary">Beli</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card" style="width: 36rem">
+                                <div class="card">
                                     <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-md-center">
-                                            <div class="col-6">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="col-8">
                                                 <h5 class="card-title text-primary">Tiket Tribun Selatan</h5>
                                                 <p>Harga: Rp 120.000</p>
                                             </div>
-                                            <div class="col-1 me-2">
-                                                <a href="#" class="btn btn-primary btn-block">Beli</a>
+                                            <div class="col-auto">
+                                                <a href="#" class="btn btn-primary">Beli</a>
                                             </div>
                                         </div>
                                     </div>
@@ -114,19 +116,19 @@
     </div>
 
 
-<script>
-    // Function to update button highlighting
-    var carousel = document.getElementById('contentSlider');
-    var buttons = document.querySelectorAll('.btn');
-  
-    // Listen for slide change event
-    carousel.addEventListener('slide.bs.carousel', function(event) {
-      buttons.forEach(function(button) {
-        button.classList.remove('active-btn'); // Remove highlight from all buttons
-      });
-  
-      // Highlight the current button based on the slide index
-      document.getElementById('btn' + (event.to + 1)).classList.add('active-btn');
-    });
-  </script>
+    <script>
+        // Function to update button highlighting
+        var carousel = document.getElementById('contentSlider');
+        var buttons = document.querySelectorAll('.btn');
+
+        // Listen for slide change event
+        carousel.addEventListener('slide.bs.carousel', function(event) {
+            buttons.forEach(function(button) {
+                button.classList.remove('active-btn'); // Remove highlight from all buttons
+            });
+
+            // Highlight the current button based on the slide index
+            document.getElementById('btn' + (event.to + 1)).classList.add('active-btn');
+        });
+    </script>
 @endsection
