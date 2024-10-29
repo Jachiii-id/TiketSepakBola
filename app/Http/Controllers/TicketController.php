@@ -12,6 +12,7 @@ use App\Models\Seat;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class TicketController extends Controller
@@ -95,7 +96,23 @@ class TicketController extends Controller
         // Retrieve APP_URL from the environment configuration
         $appUrl = env('APP_URL');
 
-        // dd($request->all());
+        // Validate the hCaptcha response
+        // $hcaptchaResponse = $request->input('h-captcha-response');
+        // $secretKey = config('services.hcaptcha.secret_key');
+        // dd($hcaptchaResponse);
+
+        // $response = Http::asForm()->post('https://hcaptcha.com/siteverify', [
+        //     'secret' => $secretKey,
+        //     'response' => $hcaptchaResponse,
+        // ]);
+
+        // $responseData = $response->json();
+        // dd($responseData);
+        // if (!$responseData['success']) {
+        //     // hCaptcha verification failed
+        //     return redirect()->back()->withErrors(['hcaptcha' => 'hCaptcha verification failed. Please try again.']);
+        // }
+
         // Handle ticket info form submission
         $validated = $request->validate([
             'nik' => 'required|array',
@@ -111,8 +128,8 @@ class TicketController extends Controller
             'nomor_hp.1' => 'nullable|numeric|digits_between:9,16',
 
             'email' => 'required|array',
-            'email.0' => 'required|email|max:255',
-            'email.1' => 'nullable|email|max:255',
+            'email.0' => 'required|email|max:255|unique:users,email',
+            'email.1' => 'nullable|email|max:255|unique:users,email',
 
             'tanggal_lahir' => 'required|array',
             'tanggal_lahir.0' => 'required|date',
@@ -129,6 +146,28 @@ class TicketController extends Controller
             'ticket_quantity' => 'required|integer|min:1|max:2',
 
             'payment_method' => 'required|string'
+        ], [
+            'nik.0.required' => 'The NIK for the first ticket buyer is required.',
+            'nik.0.numeric' => 'The NIK for the first ticket buyer must be a number.',
+            'nik.0.digits' => 'The NIK for the first ticket buyer must be 16 digits.',
+            'nik.1.numeric' => 'The NIK for the second ticket buyer must be a number.',
+            'nik.1.digits' => 'The NIK for the second ticket buyer must be 16 digits.',
+            'nama.0.required' => 'The name for the first ticket buyer is required.',
+            'nama.1.required' => 'The name for the second ticket buyer is required.',
+            'nomor_hp.0.required' => 'The phone number for the first ticket buyer is required.',
+            'nomor_hp.1.required' => 'The phone number for the second ticket buyer is required.',
+            'email.0.required' => 'The email for the first ticket buyer is required.',
+            'email.0.unique' => 'The email for the first ticket buyer is already in use.',
+            'email.1.unique' => 'The email for the second ticket buyer is already in use.',
+            'tanggal_lahir.0.required' => 'The birth date for the first ticket buyer is required.',
+            'tanggal_lahir.1.required' => 'The birth date for the second ticket buyer is required.',
+            'gender.0.required' => 'The gender for the first ticket buyer is required.',
+            'gender.1.required' => 'The gender for the second ticket buyer is required.',
+            'amount.required' => 'The amount is required.',
+            'id_match.required' => 'The match ID is required.',
+            'ticket_type.required' => 'The ticket type is required.',
+            'ticket_quantity.required' => 'The ticket quantity is required.',
+            'payment_method' => 'The payment method is required.',
         ]);
 
         // Validate the second ticket buyer if the quantity is 2
@@ -139,6 +178,12 @@ class TicketController extends Controller
                 'email.1' => 'required|email|max:255',
                 'tanggal_lahir.1' => 'required|date',
                 'gender.1' => 'required|in:male,female',
+            ], [
+                'nama.1.required' => 'The name for the second ticket buyer is required.',
+                'nomor_hp.1.required' => 'The phone number for the second ticket buyer is required.',
+                'email.1.required' => 'The email for the second ticket buyer is required.',
+                'tanggal_lahir.1.required' => 'The birth date for the second ticket buyer is required.',
+                'gender.1.required' => 'The gender for the second ticket buyer is required.',
             ]);
         }
 
