@@ -16,7 +16,19 @@
                         <p>Scan the QR code below to access your ticket:</p>
                         <img src="{{ $qrCode }}" alt="QR Code">
                         <p>Belum nganu buat kirim tiket ke email</p>
-                        <p>Atur pas email duplicate bakal nampilin error</p>
+                        <p>Atur pas email duplicate bakal nampilin error (done)</p>
+                        <p>Captcha (masi error)</p>
+                        <pre>
+                            benerin biar g ndouble pas cuma beli 1
+                            $request['items'] = [
+                                [
+                                    
+                                ],
+                                [
+                                    
+                                ]
+                            ];
+                        </pre>
                     </div>
                 </div>
             </div>
