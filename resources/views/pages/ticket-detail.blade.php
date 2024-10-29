@@ -2,7 +2,7 @@
 
 @section('title', 'Detail Ticket - Tactick')
 
-@if ($errors->any())
+{{-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -10,7 +10,12 @@
             @endforeach
         </ul>
     </div>
-@endif
+@endif --}}
+
+@error('hcaptcha')
+    <div class="alert alert-danger py-1 mt-2">{{ $message }}</div>
+@enderror
+
 
 @push('styles')
     <style>
@@ -482,7 +487,7 @@
                                             onclick="document.getElementById('dana').checked = true;">
                                             <div class="form-check d-flex align-items-center">
                                                 <input class="form-check-input" type="radio" name="payment_method"
-                                                    id="dana" value="DANA_REALTIME">
+                                                    id="dana" value="DANA">
                                                 <img src="{{ asset('assets/images/method-logo/logo-dana.png') }}"
                                                     alt="DANA" class="img-fluid">
                                                 <label class="form-check-label" for="dana">DANA</label>
@@ -517,6 +522,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
+                        <div class="h-captcha" data-sitekey="{{ config('services.hcaptcha.site_key') }}"></div>
                         {{-- <a href="{{ route('payment-method') }}" class="btn btn-primary w-100">Bayar Sekarang</a> --}}
                         <button type="submit" class="btn btn-primary w-100">Bayar Sekarang</button>
                     </div>
@@ -527,6 +533,7 @@
 @endsection
 
 @push('scripts')
+    <script src='https://www.hCaptcha.com/1/api.js' async defer></script>
     <script>
         document.getElementById('nik').addEventListener('input', function() {
             document.getElementById('hidden_nik').value = this.value;
@@ -645,10 +652,10 @@
 
             function getSelectedTicketPrice() {
                 const selectedOption = ticketTypeSelect.options[ticketTypeSelect.selectedIndex];
-                console.log("tiket type: " + selectedOption);
-                console.log("Ticket type value: " + selectedOption.value);
-                console.log("Ticket type text: " + selectedOption.text);
-                console.log("Ticket type price: " + selectedOption.getAttribute('price'));
+                // console.log("tiket type: " + selectedOption);
+                // console.log("Ticket type value: " + selectedOption.value);
+                // console.log("Ticket type text: " + selectedOption.text);
+                // console.log("Ticket type price: " + selectedOption.getAttribute('price'));
                 // return parseInt(selectedOption.getAttribute('data-price'));
 
                 // Extract price number
@@ -657,7 +664,7 @@
                 let priceString = selectedOptionText.substring(rpIndex + 3).trim();
                 let priceNumber = priceString.replace(/[^0-9]/g, '');
 
-                console.log("Price number: " + priceNumber);
+                // console.log("Price number: " + priceNumber);
                 return parseInt(priceNumber);
             }
 
