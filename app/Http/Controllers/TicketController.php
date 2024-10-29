@@ -194,7 +194,7 @@ class TicketController extends Controller
         $redirect_url = $appUrl . '/transaksi/' . $reff_id;
 
         // get data from model Seat where id = ticket_type
-        $seat = Seats:::find($request['ticket_type']);
+        $seat = Seats::find($request['ticket_type']);
 
         // Check if the Seat record was found
         if (!$seat) {
