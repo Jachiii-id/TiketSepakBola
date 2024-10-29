@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 use App\Services\TokopayService;
 use App\Models\Matches;
-use App\Models\Seat;
+use App\Models\Seats;
 use App\Models\User;
-use App\Models\Ticket;
+use App\Models\Tickets;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -67,7 +67,7 @@ class TicketController extends Controller
             $user_id = Auth::id();
 
             // Find the ticket associated with the user_id
-            $ticket = Ticket::where('user_id', $user_id)->first();
+            $ticket = Tickets::where('user_id', $user_id)->first();
 
             if ($ticket) {
                 // Update the ticket's payment_id with the payment's id
@@ -194,7 +194,7 @@ class TicketController extends Controller
         $redirect_url = $appUrl . '/transaksi/' . $reff_id;
 
         // get data from model Seat where id = ticket_type
-        $seat = Seat::find($request['ticket_type']);
+        $seat = Seats:::find($request['ticket_type']);
 
         // Check if the Seat record was found
         if (!$seat) {
@@ -287,7 +287,7 @@ class TicketController extends Controller
             }
 
             // Insert data into the ticket table
-            $ticket = Ticket::create([
+            $ticket = Tickets::create([
                 'user_id' => $user->id,
                 'match_id' => $validated['id_match'],
                 'seat_id' => $validated['ticket_type'],
@@ -337,7 +337,7 @@ class TicketController extends Controller
     {
         $matches = Matches::findOrFail($id);
         $match_detail = Matches::with('getClub1')->where($id);
-        $getTicketTypes = Seat::all();
+        $getTicketTypes = Seats:::all();
 
         // dd($match);
         $breadcrumbs = [
@@ -354,7 +354,7 @@ class TicketController extends Controller
     {
         $matches = Matches::findOrFail($id);
         $match_detail = Matches::with('getClub1')->where($id);
-        $getTicketTypes = Seat::all();
+        $getTicketTypes = Seats:::all();
 
         // dd($match);
         $breadcrumbs = [
