@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Uuid;
-use Illuminate\Support\Str;
 
-class Ticket extends Model
+class Tickets extends Model
 {
     use HasFactory;
+
+    protected $table = 'tickets';
 
     protected $fillable = [
         'user_id',

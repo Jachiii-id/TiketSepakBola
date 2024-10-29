@@ -36,12 +36,12 @@ class Matches extends Model
 
     public function getClub1()
     {
-        return $this->belongsTo(Club::class, 'club_1_id', 'id');
+        return $this->belongsTo(Clubs::class, 'club_1_id', 'id');
     }
 
     public function getClub2()
     {
-        return $this->belongsTo(Club::class, 'club_2_id', 'id');
+        return $this->belongsTo(Clubs::class, 'club_2_id', 'id');
     }
 
     protected static function boot()
