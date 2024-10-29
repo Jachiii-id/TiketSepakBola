@@ -26,6 +26,7 @@ class PaymentController extends Controller
         $breadcrumbs = [
             ['name' => 'Beranda', 'url' => route('index')],
             ['name' => 'Pembayaran', 'url' => url()->current()],
+            ['name' => 'Sukses', 'url' => url()->current()],
         ];
 
         // dell this
