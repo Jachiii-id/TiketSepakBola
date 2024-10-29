@@ -337,7 +337,7 @@ class TicketController extends Controller
     {
         $matches = Matches::findOrFail($id);
         $match_detail = Matches::with('getClub1')->where($id);
-        $getTicketTypes = Seats:::all();
+        $getTicketTypes = Seats::all();
 
         // dd($match);
         $breadcrumbs = [
@@ -354,7 +354,7 @@ class TicketController extends Controller
     {
         $matches = Matches::findOrFail($id);
         $match_detail = Matches::with('getClub1')->where($id);
-        $getTicketTypes = Seats:::all();
+        $getTicketTypes = Seats::all();
 
         // dd($match);
         $breadcrumbs = [
