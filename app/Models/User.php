@@ -3,12 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Ramsey\Uuid\Uuid;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
 
@@ -55,12 +57,10 @@ class User extends Authenticatable
     protected static function boot()
     {
         parent::boot();
+    }
 
-        // Automatically generate a UUID when creating a new record
-        // static::creating(function ($model) {
-        //     if (empty($model->uuid)) {
-        //         $model->uuid = Uuid::uuid4()->getBytes();
-        //     }
-        // });
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, '@tactick.id') && $this->hasVerifiedEmail();
     }
 }
