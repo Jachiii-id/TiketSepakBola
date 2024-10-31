@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlockedIp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +13,14 @@ use App\Models\Seats;
 use App\Models\User;
 use App\Models\Tickets;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Jenssegers\Agent\Agent;
+// use Spatie\Ip\IpFactory as Factory;
+use IPLib\Factory;
+
+
 
 class TicketController extends Controller
 {
@@ -41,7 +48,7 @@ class TicketController extends Controller
         $decodedResponse = json_decode($response, true);
 
         // Log the decoded response
-        Log::info('CreateOrder response:', ['response' => $decodedResponse]);
+        // Log::info('CreateOrder response:', ['response' => $decodedResponse]);
 
         // Check the status and log any errors
         if ($decodedResponse['status'] === 0) {
@@ -50,6 +57,7 @@ class TicketController extends Controller
         }
 
         try {
+            // dd($validated);
             $payment = Payment::create([
                 'reference' => $decodedResponse['data']['trx_id'],
                 'reff_id' => $validated['reff_id'],
@@ -58,11 +66,16 @@ class TicketController extends Controller
                 'customer_name' => $validated['customer_name'],
                 'customer_phone' => $validated['customer_phone'],
                 'payment_channel' => $validated['channel'],
+                'ip_address' => $validated['ip_address'],
+                'device_id' => $validated['device_id'],
+                'platform' => $validated['platform'],
+                'browser' => $validated['browser'],
                 'total_harga' => $validated['amount'],
                 'total_dibayar' => $decodedResponse['data']['total_bayar'],
                 'total_diterima' => $decodedResponse['data']['total_diterima'],
             ]);
 
+            // dd($payment);
             // Find the user_id from the authenticated user
             $user_id = Auth::id();
 
@@ -112,6 +125,56 @@ class TicketController extends Controller
         //     // hCaptcha verification failed
         //     return redirect()->back()->withErrors(['hcaptcha' => 'hCaptcha verification failed. Please try again.']);
         // }
+
+        // Get the client's IP address and User-Agent string
+        $ipAddress = $request->ip();
+        $userAgent = $request->userAgent();
+
+        // Parse the User-Agent string
+        $agent = new Agent();
+        $agent->setUserAgent($userAgent);
+
+        // Get additional client information
+        $request['ip_address'] = $ipAddress;
+        $request['device_id'] = $agent->device();
+        $request['platform'] = $agent->platform();
+        $request['browser'] = $agent->browser();
+
+        // $platform = $agent->platform();
+        // $browser = $agent->browser();
+        // $isMobile = $agent->isMobile();
+        // $isTablet = $agent->isTablet();
+        // $isDesktop = $agent->isDesktop();
+        // $languages = $request->getLanguages();
+        // $referrer = $request->headers->get('referer');
+
+        // Log the IP address and client information for debugging
+        // Log::info('-- New Ticket Purchase --');
+        // Log::info('Client IP Address:', ['ip' => $ipAddress]);
+        // Log::info('Client Device:', ['device' => $device]);
+        // Log::info('Client Platform:', ['platform' => $platform]);
+        // Log::info('Client Browser:', ['browser' => $browser]);
+        // Log::info('Is Mobile:', ['isMobile' => $isMobile]);
+        // Log::info('Is Tablet:', ['isTablet' => $isTablet]);
+        // Log::info('Is Desktop:', ['isDesktop' => $isDesktop]);
+        // Log::info('Client Languages:', ['languages' => $languages]);
+        // Log::info('Referrer URL:', ['referrer' => $referrer]);
+        // Log::info('-- End Ticket Purchase --');
+
+        // dd($request->all());
+
+        // Check for duplicate orders
+        $existingPayment = Payment::where('ip_address', $ipAddress)
+            ->first();
+
+        if ($existingPayment) {
+            return redirect()->back()->withErrors(['duplicate' => 'Multiple orders from the same device or IP address are not allowed.']);
+        }
+
+        // Check honeypot field
+        if ($request->filled('total')) {
+            return redirect()->back()->withErrors(['spam' => 'Spam detected.']);
+        }
 
         // Handle ticket info form submission
         $validated = $request->validate([
