@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banners;
 use App\Models\BlockedIp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -392,8 +393,10 @@ class TicketController extends Controller
             ['name' => 'Beranda', 'url' => route('index')],
         ];
 
+        $images = Banners::all();
+
         // Pass the data to the view
-        return view('pages.tickets', compact('matches', 'breadcrumbs'));
+        return view('pages.tickets', compact('matches', 'images', 'breadcrumbs'));
     }
 
     public function showDetail($id)
