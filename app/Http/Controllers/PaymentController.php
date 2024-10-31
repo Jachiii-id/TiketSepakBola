@@ -7,6 +7,10 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Zxing\QrReader;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendQRCodeToClientMail;
+use Illuminate\Support\Facades\Log;
+
 // use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Response;
 
@@ -57,6 +61,16 @@ class PaymentController extends Controller
             $qrCode = new QrCode($encryptedData);
             $writer = new PngWriter();
             $qrCodeImage = $writer->write($qrCode);
+            $qrCodeDataUri = $qrCodeImage->getDataUri();
+
+            // Send the mail
+            // Mail::to($payment->customer_email)->send(new (new SendQRCodeToClientMail($qrCodeImage->getDataUri())));
+            try {
+                Mail::to($payment->customer_email)->send(new SendQRCodeToClientMail($qrCodeDataUri));
+                Log::info('Email sent successfully to ' . $payment->customer_email);
+            } catch (\Exception $e) {
+                Log::error('Failed to send email to ' . $payment->customer_email . '. Error: ' . $e->getMessage());
+            }
 
             // del this
             // Decrypt the data and validate HMAC
@@ -72,7 +86,7 @@ class PaymentController extends Controller
         }
 
         // Return the view with the QR code
-        return view('pages.payment-success', ['qrCode' => $qrCodeImage->getDataUri(), 'breadcrumbs' => $breadcrumbs]);
+        return view('pages.payment-success', ['qrCode' => $qrCodeDataUri, 'breadcrumbs' => $breadcrumbs]);
     }
 
     // Function to encrypt the data and generate HMAC

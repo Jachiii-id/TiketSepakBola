@@ -517,6 +517,7 @@
                         <h4 class="card-title">Total Pembayaran</h4>
                         <div class="col-sm-6 text-start">
                             <h2 id="total_pembayaran">Rp 0</h2>
+                            <input type="text" name="total" style="display:none">
                         </div>
                     </div>
                 </div>
