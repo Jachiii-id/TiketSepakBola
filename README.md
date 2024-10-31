@@ -73,6 +73,15 @@ php artisan serve
 Visit http://localhost:8000 in your browser to see the application.
 
 ### Additional Commands
+Run all
+```sh
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+php artisan filament:optimize-clear
+```
+
 Clear the application cache:
 ```sh
 php artisan cache:clear
@@ -91,6 +100,14 @@ php artisan route:clear
 Clear the view cache:
 ```sh
 php artisan view:clear
+```
+
+This command will cache the Filament components and additionally the Blade icons, which can significantly improve the performance of your Filament panels. This command is a shorthand for the commands php artisan filament:cache-components and php artisan icons:cache.
+
+To clear the caches at once, you can run:
+
+```sh
+php artisan filament:optimize-clear
 ```
 
 ## Contributing
