@@ -8,6 +8,7 @@
         "php": "^8.2",
         "endroid/qr-code": "^5.1",
         "filament/filament": "^3.2",
+        "jenssegers/agent": "^2.6",
         "khanamiryan/qrcode-detector-decoder": "^2.0",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
