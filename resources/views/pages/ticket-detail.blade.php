@@ -524,7 +524,6 @@
                 <div class="row mb-3">
                     <div class="col-sm-12">
                         <div class="h-captcha" data-sitekey="{{ config('services.hcaptcha.site_key') }}"></div>
-                        {{-- <a href="{{ route('payment-method') }}" class="btn btn-primary w-100">Bayar Sekarang</a> --}}
                         <button type="submit" class="btn btn-primary w-100">Bayar Sekarang</button>
                     </div>
                 </div>
@@ -534,7 +533,7 @@
 @endsection
 
 @push('scripts')
-    <script src='https://www.hCaptcha.com/1/api.js' async defer></script>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     <script>
         document.getElementById('nik').addEventListener('input', function() {
             document.getElementById('hidden_nik').value = this.value;

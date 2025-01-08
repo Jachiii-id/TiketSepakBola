@@ -373,14 +373,6 @@ class TicketController extends Controller
 
         $response = json_decode($response, true);
 
-        // Check if the response is successful and contains the pay_url
-        if ($response['status'] === 'Success' && isset($response['data']['pay_url'])) {
-            // Redirect to the pay_url
-            return redirect()->away($response['data']['pay_url']);
-        } else {
-            // Handle error case
-            return redirect()->back()->with('error', 'Failed to create order. Please try again.');
-        }
     }
 
     public function showTickets()
@@ -427,9 +419,8 @@ class TicketController extends Controller
             ['name' => 'Beranda', 'url' => route('index')],
             ['name' => $matches->name, 'url' => route('match.detail', ['id' => $matches->id])],
             ['name' => 'Pembayaran', 'url' => url()->current()],
-        ];
+        ]; 
 
         return view('pages.ticket-details', compact('breadcrumbs', 'match_detail', 'matches', 'getTicketTypes'));
     }
-    // del this
 }

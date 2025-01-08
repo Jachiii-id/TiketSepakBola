@@ -22,7 +22,7 @@ final class FrontMatterPostRenderListener
     {
         if ($event->getOutput()->getDocument()->data->get('front_matter', null) === null) {
             return;
-        }
+        }           
 
         $frontMatter = $event->getOutput()->getDocument()->data->get('front_matter');
 

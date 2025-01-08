@@ -12,13 +12,18 @@ Route::get('/coming-soon', function () {
 
 Route::get('/', [TicketController::class, 'showTickets'])->name('index');
 
+Route::get('/tickets', [TicketController::class, 'showTickets'])->name('tickets.index');
+
 Route::get('/tiket/detail-pertandingan/{id}', [DetailMatchController::class, 'showDetailMatches'])->name('match.detail');
 
 Route::post('/tiket/bayar', [TicketController::class, 'storeTicket'])->name('ticket.store');
 
 Route::get('/tiket/detail/{id}', [TicketController::class, 'showDetail'])->name('ticket.detail');
 
-Route::get('/transaksi/{ref_id}', [PaymentController::class, 'handlePaymentSuccess'])->name('payment.success');
+Route::get('/transaksi/{reff_id}/sukses', [TicketController::class, 'showPaymentSuccess'])->name('payment.success');
+
+Route::get('/tickets/{reff_id}', [TicketController::class, 'showTickets'])->name('tickets.show');
+
 
 // del this
 // Route::get('/ticket-details/{id}', [TicketController::class, 'showDetails'])->name('ticket-details');

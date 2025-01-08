@@ -27,8 +27,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('components.form', 'form');
         Blade::component('components.card', 'card');
         //
-        URL::forceScheme('https');
-        if (App::environment('production')) {
-        }
+        // URL::forceScheme('https');
+        // if (App::environment('production')) {
+        // }
     }
 }
