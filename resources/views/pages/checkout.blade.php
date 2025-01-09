@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.app-plain')
+
+@section('title', 'Checkout - Tactick')
 
 @section('content')
-    <div class="container">
+    <div class="container py-5">
         <h1>Checkout</h1>
 
         @if($ticket && $snapToken)
@@ -12,22 +14,20 @@
                 <li>Total Harga: Rp {{ number_format($ticket->amount, 0, ',', '.') }}</li>
             </ul>
 
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-md-6">
                     <h5>Pilih Metode Pembayaran</h5>
                     <form action="{{ route('checkout.process') }}" method="POST">
                         @csrf
-
                         <div class="custom-card">
                             <div class="custom-card-body" onclick="document.getElementById('bni').checked = true;">
                                 <div class="form-check d-flex align-items-center">
                                     <input class="form-check-input" type="radio" name="payment_method" id="bni" value="BNIVA">
-                                    <img src="{{ asset('assets/images/method-logo/logo-bni.png') }}" alt="BNI" class="img-fluid">
+                                    <img src="{{ asset('assets/images/method-logo/logo-bni.png') }}" alt="BNI" class="img-fluid mx-2" style="max-width: 50px;">
                                     <label class="form-check-label" for="bni">BNI</label>
                                 </div>
                             </div>
                         </div>
-
                         <button type="submit" class="btn btn-primary mt-3">Bayar Sekarang</button>
                     </form>
                 </div>
@@ -38,9 +38,9 @@
                 </div>
             </div>
 
-            <button id="pay-button" class="btn btn-success mt-3">Bayar dengan Snap</button>
+            <button id="pay-button" class="btn btn-success mt-4">Bayar dengan Snap</button>
         @else
-            <p class="text-danger">Data tiket tidak tersedia. Silakan coba lagi.</p>
+            <p class="text-danger mt-4">Data tiket tidak tersedia. Silakan coba lagi.</p>
         @endif
     </div>
 @endsection
