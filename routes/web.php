@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DetailMatchController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TokopayController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/coming-soon', function () {
     return view('pages.coming-soon');
@@ -12,15 +14,18 @@ Route::get('/coming-soon', function () {
 
 Route::get('/', [TicketController::class, 'showTickets'])->name('index');
 
-Route::get('/tickets', [TicketController::class, 'showTickets'])->name('tickets.index');
 
+// Route::get('/matches', [DetailMatchController::class, 'index'])->name('matches');
+Route::get('/tickets', [TicketController::class, 'showTickets'])->name('tickets.index');
 Route::get('/tiket/detail-pertandingan/{id}', [DetailMatchController::class, 'showDetailMatches'])->name('match.detail');
+Route::get('/tiket/detail/{id}', [TicketController::class, 'showDetail'])->name('ticket.detail');
+Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
+Route::get('/checkout/{ticket}/{snapToken}', [CheckoutController::class, 'show'])->name('checkout');
+
+// Rute untuk menampilkan halaman transaksi
+Route::get('/transactions', [TransactionController::class, 'index'])->name("transactions");
 
 Route::post('/tiket/bayar', [TicketController::class, 'storeTicket'])->name('ticket.store');
-
-Route::get('/tiket/detail/{id}', [TicketController::class, 'showDetail'])->name('ticket.detail');
-
-Route::get('/transaksi/{reff_id}/sukses', [TicketController::class, 'showPaymentSuccess'])->name('payment.success');
 
 Route::get('/tickets/{reff_id}', [TicketController::class, 'showTickets'])->name('tickets.show');
 

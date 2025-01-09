@@ -74,7 +74,7 @@
                 {{ session('error') }}
             </div>
         @endif
-        <form action="{{ route('ticket.store') }}" method="POST">
+        <form method="POST" action="{{ route('checkout.process') }}">
             @csrf
             <div class="row">
                 <div class="col-lg-12">
@@ -339,6 +339,7 @@
                         </div>
                     </div>
                 </div>
+                <div>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Metode Pembayaran</h4>
@@ -524,7 +525,8 @@
                 <div class="row mb-3">
                     <div class="col-sm-12">
                         <div class="h-captcha" data-sitekey="{{ config('services.hcaptcha.site_key') }}"></div>
-                        <button type="submit" class="btn btn-primary w-100">Bayar Sekarang</button>
+                        <<button type="submit" class="btn btn-primary w-100">Bayar Sekarang</button>
+
                     </div>
                 </div>
             </div>
@@ -554,33 +556,6 @@
         document.getElementById('tanggallahir').addEventListener('input', function() {
             document.getElementById('hidden_tanggallahir').value = this.value;
         });
-
-        // document.querySelectorAll('input[name="gender"]').forEach(function(element) {
-        //     element.addEventListener('change', function() {
-        //         document.getElementById('hidden_gender').value = this.value;
-        //     });
-        // });
-
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     // Synchronize top and bottom gender radio buttons
-        //     const topGenderRadios = document.querySelectorAll('.top-form input[name="gender"]');
-        //     const bottomGenderRadios = document.querySelectorAll('.bottom-form input[name="gender"]');
-
-        //     function syncRadioButtons(sourceRadios, targetRadios) {
-        //         sourceRadios.forEach(function(radio) {
-        //             radio.addEventListener('change', function() {
-        //                 targetRadios.forEach(function(targetRadio) {
-        //                     if (targetRadio.value === radio.value) {
-        //                         targetRadio.checked = radio.checked;
-        //                     }
-        //                 });
-        //             });
-        //         });
-        //     }
-
-        //     syncRadioButtons(topGenderRadios, bottomGenderRadios);
-        //     syncRadioButtons(bottomGenderRadios, topGenderRadios);
-        // });
 
         document.addEventListener('DOMContentLoaded', function() {
             const topMale = document.getElementById('top-male');
@@ -652,19 +627,12 @@
 
             function getSelectedTicketPrice() {
                 const selectedOption = ticketTypeSelect.options[ticketTypeSelect.selectedIndex];
-                // console.log("tiket type: " + selectedOption);
-                // console.log("Ticket type value: " + selectedOption.value);
-                // console.log("Ticket type text: " + selectedOption.text);
-                // console.log("Ticket type price: " + selectedOption.getAttribute('price'));
-                // return parseInt(selectedOption.getAttribute('data-price'));
-
-                // Extract price number
+        
                 let selectedOptionText = selectedOption.text;
                 let rpIndex = selectedOptionText.indexOf("Rp.");
                 let priceString = selectedOptionText.substring(rpIndex + 3).trim();
                 let priceNumber = priceString.replace(/[^0-9]/g, '');
 
-                // console.log("Price number: " + priceNumber);
                 return parseInt(priceNumber);
             }
 

@@ -17,7 +17,7 @@ class DetailMatchController extends Controller
         // Add the breadcrumbs
         $breadcrumbs = [
             ['name' => 'Beranda', 'url' => route('index')],
-            ['name' => $match->name, 'url' => route('match.detail', ['id' => $match->id])],
+            // ['name' => $match->name, 'url' => route('match.detail', ['id' => $match->id])],
         ];
 
         // Pass the data to the view

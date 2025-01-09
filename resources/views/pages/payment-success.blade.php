@@ -1,37 +1,15 @@
-@extends('layouts.app-plain')
+@extends('layouts.app')
 
-@section('title', 'Pembayaran Berhasil - TacTick')
+@section('title', 'Checkout Berhasil - TacTick')
 
 @section('content')
-    <!-- Page Content  -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                @include('partials.breadcrumb')
-            </div>
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h1>Pembayaran Berhasil</h1>
-                        <p>Scan the QR code below to access your ticket:</p>
-                        <img src="{{ $qrCode }}" alt="QR Code">
-                        <p>Belum nganu buat kirim tiket ke email</p>
-                        <p>Atur pas email duplicate bakal nampilin error (done)</p>
-                        <p>Captcha (masi error)</p>
-                        <pre>
-                            benerin biar g ndouble pas cuma beli 1
-                            $request['items'] = [
-                                [
-                                    
-                                ],
-                                [
-                                    
-                                ]
-                            ];
-                        </pre>
-                    </div>
-                </div>
+   <div class="d-flex justify-content-center">
+        <div class="card">
+            <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
+                <h1 class="text-success">Pembayaran Berhasil</h1>
+                <p class="text-success">Terima kasih telah melakukan pembayaran</p>
+                <a href="{{ route('transactions') }}" class="btn btn-primary mt-3"></a>
             </div>
         </div>
-    </div>
+   </div>
 @endsection

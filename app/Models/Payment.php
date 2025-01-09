@@ -11,23 +11,25 @@ class Payment extends Model
 
     protected $fillable = [
         'reference',
-        'reff_id',
         'status',
-        'customer_email',
         'customer_name',
+        'customer_email',
         'customer_phone',
         'payment_channel',
         'ip_address',
         'device_id',
         'platform',
         'browser',
+        'language',
         'total_harga',
         'total_dibayar',
         'total_diterima',
+        'snap_token',
     ];
 
-    protected static function boot()
+    // Relasi dengan tiket
+    public function tickets()
     {
-        parent::boot();
+        return $this->hasMany(Tickets::class);
     }
 }

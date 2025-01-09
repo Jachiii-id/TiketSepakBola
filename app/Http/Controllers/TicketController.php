@@ -14,6 +14,7 @@ use App\Models\Seats;
 use App\Models\User;
 use App\Models\Tickets;
 use App\Models\Payment;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -393,34 +394,32 @@ class TicketController extends Controller
 
     public function showDetail($id)
     {
-        $matches = Matches::findOrFail($id);
-        $match_detail = Matches::with('getClub1')->where($id);
+        // Find the match based on the ID
+        $matches = Matches::find($id);
+        if (!$matches) {
+            abort(404, 'Pertandingan tidak ditemukan');
+        }
+
+        // Ambil detail pertandingan dengan relasi
+        $match_detail = Matches::with('getClub1')->find($id);
+        if (!$match_detail) {
+            abort(404, 'Detail pertandingan tidak ditemukan');
+        }
+
+        // Ambil tipe tiket
         $getTicketTypes = Seats::all();
 
-        // dd($match);
+        // Mengatur breadcrumbs jika diperlukan
         $breadcrumbs = [
             ['name' => 'Beranda', 'url' => route('index')],
             ['name' => $matches->name, 'url' => route('match.detail', ['id' => $matches->id])],
             ['name' => 'Pembayaran', 'url' => url()->current()],
+            // ['url' => route('tickets.index'), 'label' => 'Tiket'],
+            // ['url' => route('ticket.detail', ['id' => $id]), 'label' => 'Detail Tiket'],
         ];
 
-        return view('pages.ticket-detail', compact('breadcrumbs', 'match_detail', 'matches', 'getTicketTypes'));
+        $ticket = Tickets::findOrFail($id);
+        return view('pages.ticket-detail', compact('matches', 'match_detail', 'getTicketTypes', 'breadcrumbs'));
     }
 
-    // del this
-    public function showDetails($id)
-    {
-        $matches = Matches::findOrFail($id);
-        $match_detail = Matches::with('getClub1')->where($id);
-        $getTicketTypes = Seats::all();
-
-        // dd($match);
-        $breadcrumbs = [
-            ['name' => 'Beranda', 'url' => route('index')],
-            ['name' => $matches->name, 'url' => route('match.detail', ['id' => $matches->id])],
-            ['name' => 'Pembayaran', 'url' => url()->current()],
-        ]; 
-
-        return view('pages.ticket-details', compact('breadcrumbs', 'match_detail', 'matches', 'getTicketTypes'));
-    }
 }
