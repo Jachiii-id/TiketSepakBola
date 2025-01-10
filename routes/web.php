@@ -16,6 +16,9 @@ Route::get('/tiket/detail/{id}', [TicketController::class, 'showDetail'])->name(
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('/checkout/{ticket}/{snapToken}', [CheckoutController::class, 'show'])->name('checkout');
 
+Route::post('/midtrans/notification', [CheckoutController::class, 'notificationHandler'])->name('midtrans.notification');
+
+
 // Transaksi
 Route::get('/transactions', [TransactionController::class, 'index'])->name("transactions");
 Route::post('/tiket/bayar', [TicketController::class, 'storeTicket'])->name('ticket.store');
@@ -29,9 +32,9 @@ Route::get('/privacy-policy', function () {
     return view('pages.privacy-policy');
 })->name('privacy-policy');
 
-Route::get('/live-score', [LiveScoreController::class, 'index'])->name('live-score');
-Route::get('/matches', [MatchController::class, 'index'])->name('matches');
-Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics');
-Route::get('/tickets', [TicketController::class, 'index'])->name('tickets');
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::get('/setting', [SettingController::class, 'index'])->name('setting');
+// Route::get('/live-score', [LiveScoreController::class, 'index'])->name('live-score');
+// Route::get('/matches', [MatchController::class, 'index'])->name('matches');
+// Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics');
+// Route::get('/tickets', [TicketController::class, 'index'])->name('tickets');
+// Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+// Route::get('/setting', [SettingController::class, 'index'])->name('setting');
