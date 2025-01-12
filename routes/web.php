@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DetailMatchController;
 use App\Http\Controllers\TicketController;
@@ -22,6 +23,8 @@ Route::post('/midtrans/notification', [CheckoutController::class, 'notificationH
 // Transaksi
 Route::get('/transactions', [TransactionController::class, 'index'])->name("transactions");
 Route::post('/tiket/bayar', [TicketController::class, 'storeTicket'])->name('ticket.store');
+
+Route::get('/scrapping', [DashboardController::class, 'view'])->name("dashboard");
 
 // Halaman Informasi Tambahan
 Route::get('/faqs', function () {
