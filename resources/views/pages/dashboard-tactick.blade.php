@@ -71,52 +71,53 @@
                     </div>
                 </div>
           </div>
-      <div class="row">
-            <!-- Card 1 -->
-            <div class="col-xl-4 col-md-4 col-sm-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="mb-0">Perbandingan Jenis Postingan Gambar atau Video</h6>
-                        <div class="pe-2">
-                            <div class="chart">
-                                <canvas id="chart-pie" class="chart-canvas"></canvas>
-                            </div>
-                        </div>
-                        <hr class="dark horizontal">
-                    </div>
-                </div>
-            </div>
 
-            <!-- Card 2 -->
-            <div class="col-xl-4 col-md-4 col-sm-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="mb-0">Jumlah likes dan comment di setiap hashtag</h6>
-                        <div class="pe-2">
-                            <div class="chart">
-                                <canvas id="chart-bar" class="chart-canvas"></canvas>
+          <div class="row d-flex align-items-stretch">
+                <!-- Card 1 -->
+                <div class="col-xl-4 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="mb-1">Perbandingan Jenis Postingan Gambar atau Video</h6>
+                            <div class="pe-2">
+                                <div class="chart">
+                                    <canvas id="chart-pie" class="chart-canvas"></canvas>
+                                </div>
                             </div>
+                            <hr class="dark horizontal">
                         </div>
-                        <hr class="dark horizontal">
                     </div>
                 </div>
-            </div>
 
-            <!-- Card 3 -->
-            <div class="col-xl-4 col-md-4 col-sm-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="mb-0">Lokasi Populer Berdasarkan Interaksi</h6>
-                        <div class="pe-2">
-                            <div class="chart">
-                                <canvas id="line-chart" style="width: 100%; height: 300px;"></canvas>
+                <!-- Card 2 -->
+                <div class="col-xl-4 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="mb-1">Jumlah likes dan comment di setiap hashtag</h6>
+                            <div class="pe-2">
+                                <div class="chart">
+                                    <canvas id="chart-bar" class="chart-canvas"></canvas>
+                                </div>
                             </div>
+                            <hr class="dark horizontal">
                         </div>
-                        <hr class="dark horizontal">             
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-xl-4 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h6 class="mb-1">Lokasi Populer Berdasarkan Interaksi</h6>
+                            <div class="pe-2">
+                                <div class="chart">
+                                    <canvas id="line-chart" style="width: 100%; height: 300px;"></canvas>
+                                </div>
+                            </div>
+                            <hr class="dark horizontal">             
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
       <div class="row">
           <div class="col-lg-12 col-md-12">
@@ -125,7 +126,7 @@
                   <div class="card-header pb-0">
                       <div class="row">
                           <div class="col-lg-6 col-md-6">
-                              <h3 class="font-weight-bolder">List Postingan</h3>
+                              <h3 class="font-weight-bolder mb-1">List Postingan</h3>
                           </div>
                         <hr>
                       </div>
