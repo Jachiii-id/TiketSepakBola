@@ -14,7 +14,6 @@
 
 @section('content')
 
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
       <div class="container-fluid py-1 px-3">
@@ -28,97 +27,98 @@
       </div>
     </nav>
     <!-- End Navbar -->
-    <div class="container-fluid py-2">
-      <div class="row">
-        <div class="ms-3">
+    <div class="ms-3">
           <h3 class="mb-0 h4 font-weight-bolder">Dashboard</h3>
           <p class="mb-4">
             Data statistik permasalahan penjualan tiket sepak bola di Indonesia
           </p>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-              <div class="card-header p-2 ps-3">
-                  <div class="d-flex justify-content-between">
-                      <div>
-                          <p class="text-sm mb-0 text-capitalize">Jumlah Likes</p>
-                          <h4 class="mb-0">{{ $totalLikes }}</h4>
-                      </div>
-                  </div>
-              </div>
-          </div>
-         </div>
-      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-              <div class="card-header p-2 ps-3">
-                  <div class="d-flex justify-content-between">
-                      <div>
-                          <p class="text-sm mb-0 text-capitalize">Jumlah Komen</p>
-                          <h4 class="mb-0">{{ $totalComments }}</h4>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-              <div class="card-header p-2 ps-3">
-                  <div class="d-flex justify-content-between">
-                      <div>
-                          <p class="text-sm mb-0 text-capitalize">Jumlah Kota</p>
-                          <h4 class="mb-0">{{ $uniqueLocations }}</h4>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
- 
+    </div>
       <div class="row">
-        <div class="col-lg-4 mt-4 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="mb-0 ">Pie Chart Perbandingan Jenis Postingan Gambar atau Video</h6>
-                    <div class="pe-2">
-                        <div class="chart">
-                          <canvas id="chart-pie" class="chart-canvas"></canvas>
+            <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize">Jumlah Likes</p>
+                                    <h4 class="mb-0">{{ $totalLikes }}</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <hr class="dark horizontal">
+                  </div>
+                  <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize">Jumlah Komen</p>
+                                    <h4 class="mb-0">{{ $totalComments }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card">
+                        <div class="card-header p-2 ps-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-sm mb-0 text-capitalize">Jumlah Kota</p>
+                                    <h4 class="mb-0">{{ $uniqueLocations }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+      <div class="row">
+            <!-- Card 1 -->
+            <div class="col-xl-4 col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-0">Perbandingan Jenis Postingan Gambar atau Video</h6>
+                        <div class="pe-2">
+                            <div class="chart">
+                                <canvas id="chart-pie" class="chart-canvas"></canvas>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal">
+                    </div>
+                </div>
+            </div>
 
+            <!-- Card 2 -->
+            <div class="col-xl-4 col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-0">Jumlah likes dan comment di setiap hashtag</h6>
+                        <div class="pe-2">
+                            <div class="chart">
+                                <canvas id="chart-bar" class="chart-canvas"></canvas>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-xl-4 col-md-4 col-sm-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-0">Lokasi Populer Berdasarkan Interaksi</h6>
+                        <div class="pe-2">
+                            <div class="chart">
+                                <canvas id="line-chart" style="width: 100%; height: 300px;"></canvas>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal">             
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4 mt-4 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="mb-0">Bar Chart jumlah likes dan comment di setiap hashtag</h6>
-                    <div class="pe-2">
-                        <div class="chart">
-                            <canvas id="chart-bar" class="chart-canvas"></canvas>
-                        </div>
-                    </div>
-                    <hr class="dark horizontal">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 mt-4 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="mb-0">Heatmap Daerah Kota di Indonesia</h6>
-                    <div class="pe-2">
-                        <div class="chart">
-                            <div id="heatmap" style="width: 100%; height: 400px;"></div>
-                        </div>
-                    </div>
-                    <hr class="dark horizontal">             
-                </div>
-            </div>
-        </div>
-      </div>
-
-      <div class="row mb-4">
+      <div class="row">
           <div class="col-lg-12 col-md-12">
               <div class="card">
                   <!-- Card Header -->
@@ -127,18 +127,7 @@
                           <div class="col-lg-6 col-md-6">
                               <h3 class="font-weight-bolder">List Postingan</h3>
                           </div>
-                          <div class="col-lg-6 col-md-6 text-end">
-                              <div class="dropdown">
-                                  <!-- Tambahkan tombol dropdown jika diperlukan -->
-                                  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      Aksi
-                                  </button>
-                                  <ul class="dropdown-menu">
-                                      <li><a class="dropdown-item" href="#">Tambah Postingan</a></li>
-                                      <li><a class="dropdown-item" href="#">Export Data</a></li>
-                                  </ul>
-                              </div>
-                          </div>
+                        <hr>
                       </div>
                   </div>
                   <!-- End Card Header -->
@@ -195,9 +184,8 @@
               </div>
           </div>
       </div>
-
     </div>
-  </main>
+    </div>
 @endsection
 
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
@@ -301,35 +289,68 @@
         });
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        // Data lokasi (lat, lng) dari PHP
-        var locations = <?php echo json_encode($locations); ?>; // Ambil data dari PHP
+<script>
+    // Pastikan data dikirim dengan benar dari PHP ke JavaScript
+    var locationsData = @json($locationsData);  // Mengonversi data PHP ke JSON
 
-        // Inisialisasi peta
-        var map = L.map('heatmap').setView([-7.750508, 110.418402], 6); // Koordinat awal (Yogyakarta)
+    document.addEventListener("DOMContentLoaded", function () {
+        var cities = locationsData.map(data => data.city);
+        var likes = locationsData.map(data => data.total_likes);
+        var comments = locationsData.map(data => data.total_comments);
 
-        // Menambahkan tile peta
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Siapkan data untuk heatmap
-        var heatData = [];
-
-        // Loop melalui data lokasi dan ambil lat/lng untuk heatmap
-        locations.forEach(function(location) {
-            if (location.city) {
-                heatData.push([location.lat, location.lng, 0.5]); // lat, lng, intensity (0.5 sebagai nilai intensitas)
+        var ctx = document.getElementById("line-chart").getContext("2d");
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: cities,
+                datasets: [
+                    {
+                        label: 'Total Likes',
+                        data: likes,
+                        borderColor: '#4CAF50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'Total Comments',
+                        data: comments,
+                        borderColor: '#FF9800',
+                        backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Nama Kota',
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Jumlah Interaksi',
+                        }
+                    }
+                }
             }
         });
-
-        // Tambahkan heatmap ke peta
-        L.heatLayer(heatData, {
-            radius: 25,
-            blur: 15,
-            maxZoom: 17,
-        }).addTo(map);
     });
-    </script>
-
+</script>

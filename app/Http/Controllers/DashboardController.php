@@ -33,12 +33,10 @@ class DashboardController extends Controller
         $likes = $hashtagData->pluck('total_likes');
         $comments = $hashtagData->pluck('total_comments');
 
-        $locations = DB::table('scrapping')
-        ->select(
-            DB::raw("JSON_UNQUOTE(JSON_EXTRACT(location, '$.city')) as city"),
-            DB::raw("JSON_UNQUOTE(JSON_EXTRACT(location, '$.lat')) as lat"),
-            DB::raw("JSON_UNQUOTE(JSON_EXTRACT(location, '$.lng')) as lng")
-        )
+        // Query untuk menghitung total like_count dan comment_count per lokasi (kota)
+        $locationsData = DB::table('scrapping')
+        ->selectRaw("JSON_UNQUOTE(JSON_EXTRACT(location, '$.city')) as city, SUM(like_count) as total_likes, SUM(comment_count) as total_comments")
+        ->groupBy('city')
         ->get();
 
         $lists = DB::table('scrapping')
@@ -58,8 +56,7 @@ class DashboardController extends Controller
             ->paginate(10); // Menambahkan paginate untuk menampilkan 10 data per halaman
 
 
-        // dd($hashtags, $likes, $comments);
 
-        return view('pages.dashboard-tactick', compact('scrappingData', 'totalLikes', 'totalComments', 'uniqueLocations', 'postTypeCounts', 'hashtags', 'likes', 'comments', 'locations', 'lists'));
+        return view('pages.dashboard-tactick', compact('scrappingData', 'totalLikes', 'totalComments', 'uniqueLocations', 'postTypeCounts', 'hashtags', 'likes', 'comments', 'locationsData', 'lists'));
     }
 }
